@@ -4,8 +4,8 @@
  * Block list
  * OpenAPI spec version: 1.0.0
  */
-import axios from 'axios';
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { createInstance } from './api-instance';
+import type { BodyType } from './api-instance';
 export type BlockListControllerGetListParams = {
   q?: string;
 };
@@ -74,93 +74,148 @@ export interface SignUpBodyDto {
   password: string;
 }
 
-export const appControllerGetServerStatus = <TData = AxiosResponse<void>>(
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.get(`/`, options);
+type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
+
+export const appControllerGetServerStatus = (
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<void>({ url: `/`, method: 'GET' }, options);
 };
 
-export const authControllerSignUp = <TData = AxiosResponse<void>>(
-  signUpBodyDto: SignUpBodyDto,
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.post(`/auth/sign-up`, signUpBodyDto, options);
+export const authControllerSignUp = (
+  signUpBodyDto: BodyType<SignUpBodyDto>,
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<void>(
+    {
+      url: `/auth/sign-up`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: signUpBodyDto,
+    },
+    options
+  );
 };
 
-export const authControllerSignIn = <TData = AxiosResponse<void>>(
-  signInBodyDto: SignInBodyDto,
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.post(`/auth/sign-in`, signInBodyDto, options);
+export const authControllerSignIn = (
+  signInBodyDto: BodyType<SignInBodyDto>,
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<void>(
+    {
+      url: `/auth/sign-in`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: signInBodyDto,
+    },
+    options
+  );
 };
 
-export const authControllerSignOut = <TData = AxiosResponse<void>>(
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.post(`/auth/sign-out`, undefined, options);
+export const authControllerSignOut = (
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<void>(
+    { url: `/auth/sign-out`, method: 'POST' },
+    options
+  );
 };
 
-export const authControllerGetSessionInfo = <
-  TData = AxiosResponse<GetSessionInfoDto>
->(
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.get(`/auth/session`, options);
+export const authControllerGetSessionInfo = (
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<GetSessionInfoDto>(
+    { url: `/auth/session`, method: 'GET' },
+    options
+  );
 };
 
-export const accountControllerGetAccount = <TData = AxiosResponse<AccountDto>>(
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.get(`/account`, options);
+export const accountControllerGetAccount = (
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<AccountDto>(
+    { url: `/account`, method: 'GET' },
+    options
+  );
 };
 
-export const accountControllerUpdateAccount = <
-  TData = AxiosResponse<AccountDto>
->(
-  updateAccountDto: UpdateAccountDto,
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.patch(`/account`, updateAccountDto, options);
+export const accountControllerUpdateAccount = (
+  updateAccountDto: BodyType<UpdateAccountDto>,
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<AccountDto>(
+    {
+      url: `/account`,
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      data: updateAccountDto,
+    },
+    options
+  );
 };
 
-export const blockListControllerGetList = <TData = AxiosResponse<BlockListDto>>(
+export const blockListControllerGetList = (
   params?: BlockListControllerGetListParams,
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.get(`/block-list`, {
-    ...options,
-    params: { ...params, ...options?.params },
-  });
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<BlockListDto>(
+    { url: `/block-list`, method: 'GET', params },
+    options
+  );
 };
 
-export const blockListControllerAddBlockListItem = <
-  TData = AxiosResponse<BlockItemDto>
->(
-  addBlockItemDto: AddBlockItemDto,
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.post(`/block-list/item`, addBlockItemDto, options);
+export const blockListControllerAddBlockListItem = (
+  addBlockItemDto: BodyType<AddBlockItemDto>,
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<BlockItemDto>(
+    {
+      url: `/block-list/item`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: addBlockItemDto,
+    },
+    options
+  );
 };
 
-export const blockListControllerRemoveBlockItem = <
-  TData = AxiosResponse<BlockItemDto>
->(
+export const blockListControllerRemoveBlockItem = (
   id: number,
-  options?: AxiosRequestConfig
-): Promise<TData> => {
-  return axios.delete(`/block-list/item/${id}`, options);
+  options?: SecondParameter<typeof createInstance>
+) => {
+  return createInstance<BlockItemDto>(
+    { url: `/block-list/item/${id}`, method: 'DELETE' },
+    options
+  );
 };
 
-export type AppControllerGetServerStatusResult = AxiosResponse<void>;
-export type AuthControllerSignUpResult = AxiosResponse<void>;
-export type AuthControllerSignInResult = AxiosResponse<void>;
-export type AuthControllerSignOutResult = AxiosResponse<void>;
-export type AuthControllerGetSessionInfoResult =
-  AxiosResponse<GetSessionInfoDto>;
-export type AccountControllerGetAccountResult = AxiosResponse<AccountDto>;
-export type AccountControllerUpdateAccountResult = AxiosResponse<AccountDto>;
-export type BlockListControllerGetListResult = AxiosResponse<BlockListDto>;
-export type BlockListControllerAddBlockListItemResult =
-  AxiosResponse<BlockItemDto>;
-export type BlockListControllerRemoveBlockItemResult =
-  AxiosResponse<BlockItemDto>;
+export type AppControllerGetServerStatusResult = NonNullable<
+  Awaited<ReturnType<typeof appControllerGetServerStatus>>
+>;
+export type AuthControllerSignUpResult = NonNullable<
+  Awaited<ReturnType<typeof authControllerSignUp>>
+>;
+export type AuthControllerSignInResult = NonNullable<
+  Awaited<ReturnType<typeof authControllerSignIn>>
+>;
+export type AuthControllerSignOutResult = NonNullable<
+  Awaited<ReturnType<typeof authControllerSignOut>>
+>;
+export type AuthControllerGetSessionInfoResult = NonNullable<
+  Awaited<ReturnType<typeof authControllerGetSessionInfo>>
+>;
+export type AccountControllerGetAccountResult = NonNullable<
+  Awaited<ReturnType<typeof accountControllerGetAccount>>
+>;
+export type AccountControllerUpdateAccountResult = NonNullable<
+  Awaited<ReturnType<typeof accountControllerUpdateAccount>>
+>;
+export type BlockListControllerGetListResult = NonNullable<
+  Awaited<ReturnType<typeof blockListControllerGetList>>
+>;
+export type BlockListControllerAddBlockListItemResult = NonNullable<
+  Awaited<ReturnType<typeof blockListControllerAddBlockListItem>>
+>;
+export type BlockListControllerRemoveBlockItemResult = NonNullable<
+  Awaited<ReturnType<typeof blockListControllerRemoveBlockItem>>
+>;
