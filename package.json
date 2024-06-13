@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "api:download": "wget http://localhost:3001/api-yaml -O ./src/shared/api/schema.yaml"
   },
   "dependencies": {
     "axios": "^1.7.2",
