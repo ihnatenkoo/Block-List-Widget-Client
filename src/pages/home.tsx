@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { authControllerGetSessionInfo } from '@/shared/api/generated';
 import { UiButton } from '@/shared/ui/ui-button';
 import { UiTextField } from '@/shared/ui/ui-text-filed';
+import { UiSelectField } from '@/shared/ui/ui-select-field';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,6 +31,13 @@ export const HomePage = () => {
         label="Email"
         error="Wrong email"
         inputProps={{ placeholder: 'Enter email' }}
+      />
+
+      <UiSelectField
+        options={[
+          { label: 'Kyiv', value: 'Kyiv' },
+          { label: 'Odessa', value: 'Odessa' },
+        ]}
       />
     </main>
   );
