@@ -4,6 +4,7 @@ import { authControllerGetSessionInfo } from '@/shared/api/generated';
 import { UiButton } from '@/shared/ui/ui-button';
 import { UiTextField } from '@/shared/ui/ui-text-filed';
 import { UiSelectField } from '@/shared/ui/ui-select-field';
+import { UiLink } from '@/shared/ui/ui-link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -39,6 +40,8 @@ export const HomePage = () => {
           { label: 'Odessa', value: 'Odessa' },
         ]}
       />
+
+      <UiLink href="/about">About</UiLink>
     </main>
   );
 };
