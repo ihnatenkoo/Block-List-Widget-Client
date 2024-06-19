@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import { useQuery } from '@tanstack/react-query';
 import { authControllerGetSessionInfo } from '@/shared/api/generated';
 import { UiButton } from '@/shared/ui/ui-button';
+import { UiTextField } from '@/shared/ui/ui-text-filed';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +24,13 @@ export const HomePage = () => {
       <UiButton disabled variant="primary">
         Button
       </UiButton>
+
+      <UiTextField label="Email" inputProps={{ placeholder: 'Enter email' }} />
+      <UiTextField
+        label="Email"
+        error="Wrong email"
+        inputProps={{ placeholder: 'Enter email' }}
+      />
     </main>
   );
 };
