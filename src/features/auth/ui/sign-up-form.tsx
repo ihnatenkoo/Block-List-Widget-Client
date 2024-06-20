@@ -1,30 +1,14 @@
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
 import { UiButton } from '@/shared/ui/ui-button';
 import { UiTextField } from '@/shared/ui/ui-text-filed';
-import { authControllerSignUp } from '@/shared/api/generated';
 import { ROUTES } from '@/shared/constants/routes';
+import { UiLink } from '@/shared/ui/ui-link';
+import { useSignUpForm } from '../model/use-sign-up-form';
 
 export const SignUpForm = () => {
-  const router = useRouter();
-  const { register, handleSubmit } = useForm<{
-    email: string;
-    password: string;
-  }>();
-
-  const signUpMutation = useMutation({
-    mutationFn: authControllerSignUp,
-    onSuccess() {
-      router.push(ROUTES.HOME);
-    },
-  });
+  const { register, handleSubmit, isPending } = useSignUpForm();
 
   return (
-    <form
-      className="flex flex-col gap-2"
-      onSubmit={handleSubmit((data) => signUpMutation.mutate(data))}
-    >
+    <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
       <UiTextField
         label="Email"
         inputProps={{
@@ -39,9 +23,14 @@ export const SignUpForm = () => {
           ...register('password', { required: true }),
         }}
       />
-      <UiButton disabled={signUpMutation.isPending} variant="primary">
+
+      <UiButton disabled={isPending} variant="primary">
         Sign Up
       </UiButton>
+
+      <UiLink href={ROUTES.SIGN_IN} className="text-center">
+        Sign In
+      </UiLink>
     </form>
   );
 };
