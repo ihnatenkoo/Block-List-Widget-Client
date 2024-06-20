@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { SignOutButton } from '@/features/auth';
 import { authControllerGetSessionInfo } from '@/shared/api/generated';
 import { UiButton } from '@/shared/ui/ui-button';
 import { UiTextField } from '@/shared/ui/ui-text-filed';
@@ -15,7 +16,13 @@ export const HomePage = () => {
 
   return (
     <main className={'min-h-screen'}>
-      <UiHeader right={<div>{data?.email}</div>} />
+      <UiHeader
+        right={
+          <div className="flex items-center gap-2">
+            {data?.email} <SignOutButton />
+          </div>
+        }
+      />
 
       <UiButton variant="primary">Button</UiButton>
       <UiButton variant="secondary">Button</UiButton>
