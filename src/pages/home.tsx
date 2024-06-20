@@ -5,7 +5,7 @@ import { UiTextField } from '@/shared/ui/ui-text-filed';
 import { UiSelectField } from '@/shared/ui/ui-select-field';
 import { UiLink } from '@/shared/ui/ui-link';
 import { UiSpinner } from '@/shared/ui/ui-spinner';
-import UiHeader from '@/shared/ui/ui-header';
+import { UiHeader } from '@/shared/ui/ui-header';
 
 export const HomePage = () => {
   const { data } = useQuery({

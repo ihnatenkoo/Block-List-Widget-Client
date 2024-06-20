@@ -7,7 +7,7 @@ export const UiHeader = ({
   right,
 }: {
   className?: string;
-  right: ReactNode;
+  right?: ReactNode;
 }) => {
   return (
     <header
@@ -21,5 +21,3 @@ export const UiHeader = ({
     </header>
   );
 };
-
-export default UiHeader;
