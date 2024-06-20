@@ -18,8 +18,11 @@ export const useSignUpForm = () => {
     },
   });
 
+  const errorMessage = signUpMutation.error ? 'Sign up failed' : '';
+
   return {
     register,
+    errorMessage,
     handleSubmit: handleSubmit((data) => signUpMutation.mutate(data)),
     isPending: signUpMutation.isPending,
   };

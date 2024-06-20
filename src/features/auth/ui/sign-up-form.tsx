@@ -5,7 +5,7 @@ import { UiLink } from '@/shared/ui/ui-link';
 import { useSignUpForm } from '../model/use-sign-up-form';
 
 export const SignUpForm = () => {
-  const { register, handleSubmit, isPending } = useSignUpForm();
+  const { register, handleSubmit, isPending, errorMessage } = useSignUpForm();
 
   return (
     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
@@ -31,6 +31,10 @@ export const SignUpForm = () => {
       <UiLink href={ROUTES.SIGN_IN} className="text-center">
         Sign In
       </UiLink>
+
+      {errorMessage && (
+        <div className="text-rose-500 text-center">{errorMessage}</div>
+      )}
     </form>
   );
 };
